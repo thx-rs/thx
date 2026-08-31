@@ -1,6 +1,6 @@
 # thx
 
-<img src="logo.svg" alt="Thx cli client AI agent">
+<img src="https://raw.githubusercontent.com/thx-rs/thx/refs/heads/main/logo.svg" alt="thx: terminal-first AI agent with a TUI">
 
 ```bash
 cargo install thx

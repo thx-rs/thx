@@ -1,6 +1,6 @@
 [package]
 name = "thx"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 rust-version = "1.98.0"
 description = "A terminal-first AI CLI agent with a TUI and MCP support"
@@ -10,7 +10,7 @@ homepage = "https://github.com/thx-rs/thx"
 documentation = "https://docs.rs/thx"
 readme = "README.md"
 keywords = ["ai", "agent", "cli", "terminal", "mcp"]
-categories = ["command-line-utilities", "ai"]
+categories = ["command-line-utilities", "artificial-intelligence"]
 
 [dev-dependencies]
 rmcp = { version = "3.1.4", default-features = false, features = ["server"] }

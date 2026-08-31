@@ -92,11 +92,12 @@
     >thx</text>
 
     <text
-      x="842"
+      x="1300"
       y="56"
       class="muted"
       font-size="28"
       letter-spacing="1"
+      text-anchor="end"
     >openai/gpt-5.6-luna · 5 tools</text>
   </g>
 
