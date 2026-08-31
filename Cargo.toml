@@ -9,7 +9,7 @@ repository = "https://github.com/thx-rs/thx"
 homepage = "https://github.com/thx-rs/thx"
 documentation = "https://docs.rs/thx"
 readme = "README.md"
-keywords = ["ai", "agent", "cli", "terminal", "tui", "mcp"]
+keywords = ["ai", "agent", "cli", "terminal", "mcp"]
 categories = ["command-line-utilities", "ai"]
 
 [dev-dependencies]

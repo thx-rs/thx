@@ -113,8 +113,8 @@
     text-anchor="middle"
   >
     <text x="683" y="307">╺┳╸╻ ╻╻ ╻</text>
-    <text x="683" y="337"> ┃ ┣━┫┏╋┛</text>
-    <text x="683" y="367"> ╹ ╹ ╹╹ ╹</text>
+    <text x="691.5" y="337"> ┃ ┣━┫┏╋┛</text>
+    <text x="691.5" y="367"> ╹ ╹ ╹╹ ╹</text>
 
     <!-- logo disappears when message is sent -->
     <animate
