@@ -1,0 +1,56 @@
+[package]
+name = "thx"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98.0"
+description = "A terminal-first AI CLI agent with a TUI and MCP support"
+license = "MIT"
+repository = "https://github.com/thx-rs/thx"
+homepage = "https://github.com/thx-rs/thx"
+documentation = "https://docs.rs/thx"
+readme = "README.md"
+keywords = ["ai", "agent", "cli", "terminal", "tui", "mcp"]
+categories = ["command-line-utilities", "ai"]
+
+[dev-dependencies]
+rmcp = { version = "3.1.4", default-features = false, features = ["server"] }
+rig = { version = "0.42.0", default-features = false, features = ["test-utils"] }
+serial_test = "3"
+tempfile = "3"
+
+[dependencies]
+anyhow = "1"
+chrono = { version = "0.4", default-features = false, features = ["clock", "std"] }
+crossterm = { version = "0.29", features = ["bracketed-paste", "osc52"] }
+directories = "6"
+dotenvy = "0.15"
+futures = "0.3"
+jsonschema = { version = "0.52.1", default-features = false }
+ratatui = { version = "0.30.2", default-features = false, features = ["crossterm", "unstable-rendered-line-info"] }
+reqwest = { version = "0.13", default-features = false }
+rig = { version = "0.42.0", default-features = false, features = ["agent", "rustls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+serde_yaml_ng = "0.10"
+shellexpand = "3.1.2"
+tokio = { version = "1", features = ["macros", "process", "rt-multi-thread", "time"] }
+tui-markdown = { version = "0.3.9", features = ["highlight-code"] }
+tui-prompts = "0.6.7"
+unicode-width = "0.2"
+url = "2"
+
+[dependencies.rmcp]
+version = "3.1.4"
+default-features = false
+features = [
+    "client",
+    "reqwest",
+    "transport-child-process",
+    "transport-streamable-http-client-reqwest",
+]
+
+[profile.release]
+strip = true
+lto = true
+codegen-units = 1
+panic = "abort"

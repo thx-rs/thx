@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1366"
+  height="734"
+  viewBox="0 0 1366 734"
+  xml:space="preserve"
+>
+  <title>THX AI agent chat animation</title>
+
+  <defs>
+    <style>
+      :root {
+        --bg: #1d2022;
+        --fg: #dce3e8;
+        --muted: #7b7d7f;
+        --border: #787a7b;
+        --bubble: #414141;
+        --select: #5f8ba4;
+      }
+
+      .mono {
+        font-family:
+          "SFMono-Regular",
+          "SF Mono",
+          "Cascadia Mono",
+          "JetBrains Mono",
+          "DejaVu Sans Mono",
+          "Liberation Mono",
+          monospace;
+      }
+
+      .fg {
+        fill: var(--fg);
+      }
+
+      .muted {
+        fill: var(--muted);
+      }
+
+      .border {
+        fill: none;
+        stroke: var(--border);
+        stroke-width: 2;
+      }
+
+      .cursor {
+        fill: var(--fg);
+      }
+    </style>
+
+    <!-- Reveal mask for the agent answer -->
+    <clipPath id="answerClip" clipPathUnits="userSpaceOnUse">
+      <rect x="40" y="215" width="0" height="48">
+        <animate
+          attributeName="width"
+          from="0"
+          to="520"
+          begin="5.95s"
+          dur="1.4s"
+          fill="freeze"
+        />
+      </rect>
+    </clipPath>
+  </defs>
+
+
+  <!-- =========================================================
+       BACKGROUND
+       ========================================================= -->
+
+  <rect
+    x="0"
+    y="0"
+    width="1366"
+    height="734"
+    fill="#1d2022"
+  />
+
+
+  <!-- =========================================================
+       HEADER — always visible
+       ========================================================= -->
+
+  <g class="mono">
+    <text
+      x="43"
+      y="56"
+      class="fg"
+      font-size="29"
+      font-weight="700"
+    >thx</text>
+
+    <text
+      x="842"
+      y="56"
+      class="muted"
+      font-size="28"
+      letter-spacing="1"
+    >openai/gpt-5.6-luna · 5 tools</text>
+  </g>
+
+
+  <!-- =========================================================
+       EMPTY STATE / ASCII LOGO
+       Visible until the user sends Hi!
+       ========================================================= -->
+
+  <g
+    id="ascii-logo"
+    class="mono muted"
+    font-size="29"
+    text-anchor="middle"
+  >
+    <text x="683" y="307">╺┳╸╻ ╻╻ ╻</text>
+    <text x="683" y="337"> ┃ ┣━┫┏╋┛</text>
+    <text x="683" y="367"> ╹ ╹ ╹╹ ╹</text>
+
+    <!-- logo disappears when message is sent -->
+    <animate
+      attributeName="opacity"
+      from="1"
+      to="0"
+      begin="2.55s"
+      dur="0.18s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       NORMAL INPUT FRAME
+       Used before final response
+       ========================================================= -->
+
+  <g id="input-normal">
+    <rect
+      x="34"
+      y="591"
+      width="1280"
+      height="129"
+      rx="4"
+      class="border"
+    />
+
+    <!-- Hide normal frame when final context UI appears -->
+    <set
+      attributeName="visibility"
+      to="hidden"
+      begin="5.85s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       INITIAL PLACEHOLDER
+       ========================================================= -->
+
+  <g
+    id="placeholder"
+    class="mono muted"
+    font-size="28"
+  >
+    <text x="57" y="666">Ask anything…</text>
+
+    <!-- placeholder disappears when typing starts -->
+    <animate
+      attributeName="opacity"
+      from="1"
+      to="0"
+      begin="0.75s"
+      dur="0.08s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       TYPING "Hi!"
+       H → Hi → Hi!
+       ========================================================= -->
+
+  <!-- H -->
+  <g
+    visibility="hidden"
+    class="mono fg"
+    font-size="29"
+  >
+    <text x="57" y="666">H</text>
+
+    <rect
+      x="76"
+      y="641"
+      width="2"
+      height="31"
+      class="cursor"
+    >
+      <animate
+        attributeName="opacity"
+        values="1;0;1"
+        dur="0.45s"
+        repeatCount="indefinite"
+      />
+    </rect>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="0.82s"
+      dur="0.34s"
+      fill="remove"
+    />
+  </g>
+
+  <!-- Hi -->
+  <g
+    visibility="hidden"
+    class="mono fg"
+    font-size="29"
+  >
+    <text x="57" y="666">Hi</text>
+
+    <rect
+      x="94"
+      y="641"
+      width="2"
+      height="31"
+      class="cursor"
+    >
+      <animate
+        attributeName="opacity"
+        values="1;0;1"
+        dur="0.45s"
+        repeatCount="indefinite"
+      />
+    </rect>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="1.16s"
+      dur="0.34s"
+      fill="remove"
+    />
+  </g>
+
+  <!-- Hi! -->
+  <g
+    visibility="hidden"
+    class="mono fg"
+    font-size="29"
+  >
+    <text x="57" y="666">Hi!</text>
+
+    <rect
+      x="111"
+      y="641"
+      width="2"
+      height="31"
+      class="cursor"
+    >
+      <animate
+        attributeName="opacity"
+        values="1;0;1"
+        dur="0.5s"
+        repeatCount="indefinite"
+      />
+    </rect>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="1.50s"
+      dur="1.05s"
+      fill="remove"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       USER MESSAGE BUBBLE
+       Appears after Send
+       ========================================================= -->
+
+  <g
+    id="user-message"
+    visibility="hidden"
+    class="mono"
+  >
+    <rect
+      x="1192"
+      y="94"
+      width="112"
+      height="96"
+      fill="#414141"
+    />
+
+    <text
+      x="1248"
+      y="150"
+      class="fg"
+      font-size="29"
+      text-anchor="middle"
+    >Hi!</text>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="2.55s"
+      fill="freeze"
+    />
+
+    <!-- subtle message entrance -->
+    <animateTransform
+      attributeName="transform"
+      type="translate"
+      values="20 0; 0 0"
+      begin="2.55s"
+      dur="0.22s"
+      fill="freeze"
+    />
+
+    <animate
+      attributeName="opacity"
+      from="0"
+      to="1"
+      begin="2.55s"
+      dur="0.18s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       INPUT AFTER SEND
+       Empty placeholder reappears
+       ========================================================= -->
+
+  <g
+    id="placeholder-after-send"
+    visibility="hidden"
+    class="mono muted"
+    font-size="28"
+  >
+    <text x="57" y="666">Ask anything…</text>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="2.58s"
+      fill="freeze"
+    />
+
+    <set
+      attributeName="visibility"
+      to="hidden"
+      begin="5.85s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       THINKING STATE
+       10-frame Braille spinner
+       ========================================================= -->
+
+  <g
+    id="thinking"
+    visibility="hidden"
+    class="mono"
+  >
+    <!-- Spinner frames -->
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠋
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="2.80s;3.80s;4.80s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠙
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="2.90s;3.90s;4.90s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠹
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.00s;4.00s;5.00s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠸
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.10s;4.10s;5.10s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠼
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.20s;4.20s;5.20s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠴
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.30s;4.30s;5.30s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠦
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.40s;4.40s;5.40s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠧
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.50s;4.50s;5.50s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠇
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.60s;4.60s;5.60s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="38"
+      y="557"
+      class="fg"
+      font-size="27"
+      visibility="hidden"
+    >⠏
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.70s;4.70s;5.70s"
+        dur="0.10s"
+        fill="remove"
+      />
+    </text>
+
+
+    <!-- Thinking label -->
+
+    <text
+      x="67"
+      y="557"
+      class="muted"
+      font-size="27"
+    >Thinking</text>
+
+
+    <!-- Animated timer -->
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.1s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="2.80s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.2s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.16s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.3s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.52s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.4s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="3.88s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.5s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="4.24s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.6s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="4.60s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.7s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="4.96s"
+        dur="0.36s"
+        fill="remove"
+      />
+    </text>
+
+    <text
+      x="199"
+      y="557"
+      class="muted"
+      font-size="27"
+      visibility="hidden"
+    >0.8s
+      <set
+        attributeName="visibility"
+        to="visible"
+        begin="5.32s"
+        dur="0.53s"
+        fill="remove"
+      />
+    </text>
+
+
+    <!-- Entire thinking block -->
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="2.80s"
+      fill="freeze"
+    />
+
+    <set
+      attributeName="visibility"
+      to="hidden"
+      begin="5.85s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       FINAL AGENT RESPONSE
+       ========================================================= -->
+
+  <g
+    id="agent-response"
+    visibility="hidden"
+    class="mono"
+  >
+    <!-- Answer -->
+    <g clip-path="url(#answerClip)">
+      <text
+        x="40"
+        y="246"
+        class="fg"
+        font-size="28"
+      >Hi! How can I help you today?</text>
+    </g>
+
+    <!-- Typewriter cursor -->
+    <rect
+      x="40"
+      y="220"
+      width="2"
+      height="32"
+      class="cursor"
+      opacity="0"
+    >
+      <animate
+        attributeName="x"
+        from="40"
+        to="512"
+        begin="5.95s"
+        dur="1.40s"
+        fill="freeze"
+      />
+
+      <animate
+        attributeName="opacity"
+        values="1;1;0;1;1;0;1;1;0"
+        begin="5.95s"
+        dur="1.40s"
+        fill="freeze"
+      />
+
+      <set
+        attributeName="opacity"
+        to="0"
+        begin="7.35s"
+        fill="freeze"
+      />
+    </rect>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="5.85s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       RESPONSE META / STATS
+       ========================================================= -->
+
+  <g
+    id="stats"
+    visibility="hidden"
+    class="mono muted"
+    font-size="27"
+  >
+    <text x="42" y="310">input-total 1.1k · output-total 13 · ⧖ 1.8s</text>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="7.40s"
+      fill="freeze"
+    />
+
+    <animate
+      attributeName="opacity"
+      from="0"
+      to="1"
+      begin="7.40s"
+      dur="0.25s"
+      fill="freeze"
+    />
+  </g>
+
+
+  <!-- =========================================================
+       FINAL INPUT FRAME WITH "ctx 1.1k"
+       ========================================================= -->
+
+  <g
+    id="final-input"
+    visibility="hidden"
+    class="mono"
+  >
+    <!-- left/top border -->
+    <path
+      d="
+        M 1144 590
+        L 32 590
+        L 32 717
+        L 1312 717
+        L 1312 590
+      "
+      fill="none"
+      stroke="#787a7b"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+
+    <!-- right little bracket-like segment -->
+    <path
+      d="
+        M 1305 590
+        L 1312 590
+        L 1312 608
+      "
+      fill="none"
+      stroke="#787a7b"
+      stroke-width="2"
+      stroke-linecap="round"
+    />
+
+    <!-- Context label -->
+    <text
+      x="1161"
+      y="598"
+      class="muted"
+      font-size="27"
+    >ctx 1.1k</text>
+
+    <text
+      x="57"
+      y="666"
+      class="muted"
+      font-size="28"
+    >Ask anything…</text>
+
+    <!-- little input caret -->
+    <rect
+      x="56"
+      y="639"
+      width="2"
+      height="31"
+      fill="#aeb5b9"
+    >
+      <animate
+        attributeName="opacity"
+        values="0;1;1;0"
+        keyTimes="0;0.05;0.55;1"
+        dur="1s"
+        begin="7.7s"
+        repeatCount="indefinite"
+      />
+    </rect>
+
+    <set
+      attributeName="visibility"
+      to="visible"
+      begin="5.85s"
+      fill="freeze"
+    />
+
+    <animate
+      attributeName="opacity"
+      from="0"
+      to="1"
+      begin="5.85s"
+      dur="0.18s"
+      fill="freeze"
+    />
+  </g>
+
+</svg>
